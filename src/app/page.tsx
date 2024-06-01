@@ -13,7 +13,7 @@ export default function Home() {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<Person>();
+  } = useForm<Person>({ mode: "onChange" });
   const [formData, setFormData] = useState<Person | null>(null);
   const onSubmit: SubmitHandler<Person> = (data) => setFormData(data);
 
@@ -34,7 +34,9 @@ export default function Home() {
             className="border-2 rounded-md w-full p-1"
             placeholder="名前を入力してください"
           />
-          {errors.name?.message}
+          <p className="text-red-500 text-right text-sm">
+            {errors.name?.message}
+          </p>
         </div>
         <div className="m-2">
           <label>年齢</label>
@@ -49,7 +51,9 @@ export default function Home() {
             className="border-2 rounded-md w-full p-1"
             placeholder="年齢を入力してください"
           />
-          {errors.age?.message}
+          <p className="text-red-500 text-right text-sm">
+            {errors.age?.message}
+          </p>
         </div>
         <div className="m-2">
           <button
