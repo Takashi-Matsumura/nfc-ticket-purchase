@@ -14,3 +14,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 2. React Hook Form: useForm
 3. Shadcn/UI and zod
 4. Custome Component for login
+5. NFC Scan implementation

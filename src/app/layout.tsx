@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header, Footer } from "./components/layout/HomeLayout";
 
+import { Toaster } from "@/components/ui/toaster";
+
 // Noto_Sans_JP
 import { Noto_Sans_JP } from "next/font/google";
 import clsx from "clsx";
@@ -25,9 +27,10 @@ export default function RootLayout({
     <html lang="ja" className={clsx(notoSansJP.variable, "font-sans")}>
       <body>
         <Header style={{ position: "fixed", top: 0, width: "100%" }} />
-        <div style={{ paddingTop: "60px", paddingBottom: "60px" }}>
+        <main style={{ paddingTop: "60px", paddingBottom: "60px" }}>
           {children}
-        </div>
+        </main>
+        <Toaster />
         <Footer style={{ position: "fixed", bottom: 0, width: "100%" }} />
       </body>
     </html>

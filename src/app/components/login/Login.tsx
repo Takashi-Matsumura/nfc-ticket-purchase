@@ -1,20 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -24,36 +9,37 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { SubmitButton } from "../button/Buttons";
+import { HiOutlineIdentification } from "react-icons/hi2";
+import { CommitButton } from "../button/Buttons";
 
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  age: z.coerce
-    .number()
-    .int()
-    .positive({ message: "Age must be a positive number." }),
-});
+import { getIDmStr } from "@/app/lib/nfc/rcs300.mjs";
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const Login = () => {
-  const [formData, setFormData] = useState<z.infer<typeof formSchema> | null>(
-    null
-  );
+  const [idm, setIdm] = useState<string | undefined>("");
+  const [isScanning, setIsScanning] = useState<boolean>(false);
+  const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      age: 0,
-    },
-    mode: "onChange",
-  });
-
-  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (
-    data: z.infer<typeof formSchema>
-  ) => {
-    setFormData(data);
+  const handleClick = async () => {
+    setIsScanning(true);
+    try {
+      await getIDmStr(navigator).then((idmString) => {
+        if (idmString) {
+          setIdm(idmString?.replace(/\s/g, ""));
+        } else {
+          setIdm(undefined);
+          toast({
+            // variant: "destructive",
+            title: "Error",
+            description: "IDmが取得できませんでした",
+          });
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    setIsScanning(false);
   };
 
   return (
@@ -61,48 +47,25 @@ const Login = () => {
       <CardHeader>
         <CardTitle className="text-center">Login</CardTitle>
         <CardDescription className="text-center text-sm">
-          ようこそ！ NFCカードをかざしてください
+          ようこそ！ {process.env.NEXT_PUBLIC_CARD_NAME}をかざしてください
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="age"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>age</FormLabel>
-                  <FormControl>
-                    <Input placeholder="age" type="number" min="0" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <SubmitButton className="mt-5 w-full">SCAN</SubmitButton>
-          </form>
-        </Form>
+        <div className="flex justify-center border-2 rounded-lg py-10">
+          <HiOutlineIdentification className="text-9xl" />
+        </div>
+        <div className="flex justify-center mt-4">
+          {isScanning ? (
+            <p>now scaning...</p>
+          ) : (
+            <CommitButton onClick={handleClick} className="w-full">
+              SCAN
+            </CommitButton>
+          )}
+        </div>
       </CardContent>
       <CardFooter>
-        <p>
-          {formData
-            ? `name: ${formData.name}, age: ${formData.age}`
-            : "No form data submitted yet."}
-        </p>
+        <p className="text-center w-full">{idm}</p>
       </CardFooter>
     </Card>
   );
