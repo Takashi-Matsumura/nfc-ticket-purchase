@@ -1,72 +1,118 @@
 "use client";
 
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useFormState } from "react-hook-form";
 
-type Person = {
-  name: string;
-  age: number;
-};
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  age: z.coerce
+    .number()
+    .int()
+    .positive({ message: "Age must be a positive number." }),
+});
 
 export default function Home() {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<Person>({ mode: "onChange" });
-  const [formData, setFormData] = useState<Person | null>(null);
-  const onSubmit: SubmitHandler<Person> = (data) => setFormData(data);
+  const [formData, setFormData] = useState<z.infer<typeof formSchema> | null>(
+    null
+  );
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      age: 0,
+    },
+    mode: "onChange",
+  });
+
+  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (
+    data: z.infer<typeof formSchema>
+  ) => {
+    console.log(data);
+    setFormData(data);
+  };
 
   return (
     <div className="container m-auto">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-96 border-2 mx-auto mt-4 rounded"
-      >
-        <h1 className="text-2xl text-center mt-2">入力フォーム</h1>
-        <div className="m-2">
-          <label>名前</label>
-          <input
-            {...register("name", {
-              required: "名前を入力してください",
-              minLength: { value: 2, message: "2文字以上入力してください" },
-            })}
-            className="border-2 rounded-md w-full p-1"
-            placeholder="名前を入力してください"
-          />
-          <p className="text-red-500 text-right text-sm">
-            {errors.name?.message}
+      <Card className="w-96 mx-auto mt-10">
+        <CardHeader>
+          <CardTitle>ReactHookForm (shadcn)</CardTitle>
+          <CardDescription>using shadcn components and zod</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="age"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>age</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="age"
+                        type="number"
+                        min="0"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full mt-3">
+                Submit
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+        <CardFooter>
+          <p>
+            {formData
+              ? `name: ${formData.name}, age: ${formData.age}`
+              : "No form data submitted yet."}
           </p>
-        </div>
-        <div className="m-2">
-          <label>年齢</label>
-          <input
-            {...register("age", {
-              min: { value: 0, message: "0以上を入力してください" },
-              required: "年齢を入力してください",
-            })}
-            type="number"
-            defaultValue={0}
-            min={0}
-            className="border-2 rounded-md w-full p-1"
-            placeholder="年齢を入力してください"
-          />
-          <p className="text-red-500 text-right text-sm">
-            {errors.age?.message}
-          </p>
-        </div>
-        <div className="m-2">
-          <button
-            className="bg-black text-white rounded-lg w-full mt-4 p-1"
-            type="submit"
-          >
-            送信
-          </button>
-        </div>
-        <div className="text-center my-4">
-          あなたの名前は{formData?.name}、年齢は{formData?.age}です
-        </div>
-      </form>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
