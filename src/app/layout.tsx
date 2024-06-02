@@ -14,24 +14,34 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "BBS: my Blogs",
-  description: "My Personal Blog Page",
+  title: "Ticket Counter",
+  description: "Shadcn/UI Ticket Counter",
+};
+
+type LayoutProps = {
+  children: React.ReactNode;
+  showHeader?: boolean;
+  showFooter?: boolean;
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  showHeader = true,
+  showFooter = true,
+}: LayoutProps) {
   return (
     <html lang="ja" className={clsx(notoSansJP.variable, "font-sans")}>
       <body>
-        <Header style={{ position: "fixed", top: 0, width: "100%" }} />
+        {showHeader && (
+          <Header style={{ position: "fixed", top: 0, width: "100%" }} />
+        )}
         <main style={{ paddingTop: "60px", paddingBottom: "60px" }}>
           {children}
         </main>
         <Toaster />
-        <Footer style={{ position: "fixed", bottom: 0, width: "100%" }} />
+        {showFooter && (
+          <Footer style={{ position: "fixed", bottom: 0, width: "100%" }} />
+        )}
       </body>
     </html>
   );

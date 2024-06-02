@@ -12,7 +12,7 @@ export const Header: React.FC<LayoutProps> = ({ style }) => {
   // コンポーネントの定義
   return (
     <header style={style}>
-      <div className="container mx-auto py-2 flex items-center justify-between">
+      <div className="container bg-white mx-auto py-2 flex items-center justify-between">
         <Link href="/">
           <HiOutlineTicket className="text-2xl" />
         </Link>
@@ -31,7 +31,7 @@ export const Footer: React.FC<LayoutProps> = ({ style }) => {
   return (
     <footer style={style}>
       <Separator />
-      <p className="text-center py-2">© 2024 MatsBACCANO</p>
+      <p className="text-center bg-white py-2">© 2024 MatsBACCANO</p>
     </footer>
   );
 };
