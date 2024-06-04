@@ -12,6 +12,7 @@ import { LinkButton } from "./components/button/Buttons";
 
 export default function Home() {
   return (
+    //<Login />
     <Tabs defaultValue="sales" className="container mx-auto w-full h-[600px]">
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="sales">

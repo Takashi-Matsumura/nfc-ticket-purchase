@@ -1,11 +1,11 @@
-import RootLayout from "../layout";
+import CustomerCard from "../components/sales/CustomerCard";
+import EmployeeCard from "../components/sales/EmployeeCard";
 
 export default function Sales() {
   return (
-    <RootLayout showHeader={false} showFooter={true}>
-      <div className="container mx-auto">
-        <h1 className="text-3xl font-bold">Sales</h1>
-      </div>
-    </RootLayout>
+    <div className="container mx-auto flex">
+      <EmployeeCard />
+      <CustomerCard />
+    </div>
   );
 }

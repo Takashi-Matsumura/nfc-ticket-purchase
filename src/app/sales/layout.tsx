@@ -1,8 +1,4 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { Header, Footer } from "./components/layout/HomeLayout";
-
+import { SalesHeader, Footer } from "../components/layout/HomeLayout";
 import { Toaster } from "@/components/ui/toaster";
 
 // Noto_Sans_JP
@@ -14,11 +10,6 @@ const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
 });
 
-export const metadata: Metadata = {
-  title: "Ticket Counter",
-  description: "Shadcn/UI Ticket Counter",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="ja" className={clsx(notoSansJP.variable, "font-sans")}>
       <body>
-        <Header style={{ position: "fixed", top: 0, width: "100%" }} />
+        <SalesHeader style={{ position: "fixed", top: 0, width: "100%" }} />
         <main style={{ paddingTop: "60px", paddingBottom: "60px" }}>
           {children}
         </main>
