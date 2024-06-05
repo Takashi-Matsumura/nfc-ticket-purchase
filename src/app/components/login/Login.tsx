@@ -15,11 +15,13 @@ import { CommitButton } from "../button/Buttons";
 import { getIDmStr } from "@/app/lib/nfc/rcs300.mjs";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [idm, setIdm] = useState<string | undefined>("");
   const [isScanning, setIsScanning] = useState<boolean>(false);
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleClick = async () => {
     setIsScanning(true);
@@ -27,6 +29,7 @@ const Login = () => {
       await getIDmStr(navigator).then((idmString) => {
         if (idmString) {
           setIdm(idmString?.replace(/\s/g, ""));
+          router.push("/dashboard");
         } else {
           setIdm(undefined);
           toast({

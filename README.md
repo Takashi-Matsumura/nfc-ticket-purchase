@@ -16,3 +16,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 4. Custome Component for login
 5. NFC Scan implementation
 6. Dashboard design
+7. Dashboard page
