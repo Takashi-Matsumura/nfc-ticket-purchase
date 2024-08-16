@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={clsx(notoSansJP.variable, "font-sans")}>
+    <html lang="ja" className={clsx(notoSansJP.variable)}>
       <body>
         <Header style={{ position: "fixed", top: 0, width: "100%" }} />
         <main style={{ paddingTop: "60px", paddingBottom: "60px" }}>

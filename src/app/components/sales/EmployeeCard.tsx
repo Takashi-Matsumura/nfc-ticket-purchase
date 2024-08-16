@@ -28,13 +28,12 @@ const EmployeeCard = () => {
     try {
       await getIDmStr(navigator).then((idmString) => {
         if (idmString) {
-          setIdm(idmString?.replace(/\s/g, ""));
-
-          router.push(`/sales/${idmString}`);
+          const cleanedIdm = idmString.replace(/\s/g, "");
+          setIdm(cleanedIdm);
+          router.push(`/sales/${cleanedIdm}`);
         } else {
           setIdm(undefined);
           toast({
-            // variant: "destructive",
             title: "Error",
             description: "IDmが取得できませんでした",
           });
@@ -42,8 +41,13 @@ const EmployeeCard = () => {
       });
     } catch (e) {
       console.error(e);
+      toast({
+        title: "Error",
+        description: "エラーが発生しました。もう一度お試しください。",
+      });
+    } finally {
+      setIsScanning(false);
     }
-    setIsScanning(false);
   };
 
   return (
