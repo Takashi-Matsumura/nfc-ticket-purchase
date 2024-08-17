@@ -29,7 +29,7 @@ const Login = () => {
       await getIDmStr(navigator).then((idmString) => {
         if (idmString) {
           setIdm(idmString?.replace(/\s/g, ""));
-          router.push("/dashboard");
+          router.push("/sales");
         } else {
           setIdm(undefined);
           toast({

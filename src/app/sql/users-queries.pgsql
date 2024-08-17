@@ -13,3 +13,5 @@ VALUES ('Takashi Matsumura', 'mats@hoge.jp', '0116020053187C01', CURRENT_TIMESTA
 SELECT * FROM tbl_users;
 
 SELECT * FROM tbl_users WHERE nfc_id = '0116020053187C01';
+
+SELECT id,nfc_id FROM tbl_users WHERE nfc_id = '0116020053187C01';

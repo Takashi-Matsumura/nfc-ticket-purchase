@@ -53,7 +53,7 @@ export default function EmployeeSales() {
     <div className="flex flex-col px-20">
       <div className="flex w-full items-start gap-20 justify-center">
         <SalesPane employee={employee} />
-        <DataPane employee={employee} />
+        {employee.name && <DataPane employee={employee} />}
       </div>
       <div className="flex justify-center w-full mt-10">
         <CancelButton

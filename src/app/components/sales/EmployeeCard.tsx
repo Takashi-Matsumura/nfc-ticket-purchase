@@ -66,7 +66,10 @@ const EmployeeCard = () => {
           {isScanning ? (
             <p>now scaning...</p>
           ) : (
-            <CommitButton onClick={handleClick} className="w-full">
+            <CommitButton
+              onClick={handleClick}
+              className="w-full text-2xl py-6"
+            >
               SCAN
             </CommitButton>
           )}

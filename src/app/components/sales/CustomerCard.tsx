@@ -26,7 +26,7 @@ const CustomerCard = () => {
           <HiOutlineTicket className="text-9xl" />
         </div>
         <div className="flex justify-center mt-4">
-          <LinkButton href="/sales/customer" className="w-full">
+          <LinkButton href="/sales/customer" className="w-full text-2xl">
             BUY
           </LinkButton>
         </div>
