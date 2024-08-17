@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 
-import { HiOutlineTicket, HiOutlineInformationCircle } from "react-icons/hi2";
+import { HiOutlineHome, HiOutlineInformationCircle } from "react-icons/hi2";
 import { HiOutlineArrowRightStartOnRectangle } from "react-icons/hi2";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
@@ -15,7 +17,7 @@ export const Header: React.FC<LayoutProps> = ({ style }) => {
     <header style={style}>
       <div className="container bg-white mx-auto py-2 flex items-center justify-between">
         <Link href="/">
-          <HiOutlineTicket className="text-2xl" />
+          <HiOutlineHome className="text-2xl" />
         </Link>
         {process.env.NEXT_PUBLIC_APP_NAME}
         <Link href="/help">
@@ -33,7 +35,7 @@ export const SalesHeader: React.FC<LayoutProps> = ({ style }) => {
     <header style={style}>
       <div className="container bg-white mx-auto py-2 flex items-center justify-end">
         <Link href="/help">
-          <HiOutlineArrowRightStartOnRectangle className="text-2xl" />
+          <HiOutlineInformationCircle className="text-2xl" />
         </Link>
       </div>
       <Separator />

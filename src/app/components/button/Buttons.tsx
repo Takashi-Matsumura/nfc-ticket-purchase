@@ -19,6 +19,39 @@ export const CommitButton = ({ className, onClick, children }: ButtonProps) => {
   );
 };
 
+export const OKButton = ({ className, onClick, children }: ButtonProps) => {
+  return (
+    <Button
+      onClick={onClick}
+      className={`bg-blue-500 hover:bg-blue-600 text-center transition duration-500 text-white font-bold py-2 px-4 rounded ${className}`}
+    >
+      {children}
+    </Button>
+  );
+};
+
+export const CancelButton = ({ className, onClick, children }: ButtonProps) => {
+  return (
+    <Button
+      onClick={onClick}
+      className={`bg-rose-500 hover:bg-rose-600 text-center transition duration-500 text-white font-bold py-2 px-4 rounded ${className}`}
+    >
+      {children}
+    </Button>
+  );
+};
+
+export const RecordButton = ({ className, onClick, children }: ButtonProps) => {
+  return (
+    <Button
+      onClick={onClick}
+      className={`bg-emerald-500 hover:bg-emerald-600 text-center transition duration-500 text-white font-bold py-2 px-4 rounded ${className}`}
+    >
+      {children}
+    </Button>
+  );
+};
+
 interface SubmitProps {
   type?: "submit";
   className?: string;
