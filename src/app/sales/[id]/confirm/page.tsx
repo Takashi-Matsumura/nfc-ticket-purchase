@@ -21,6 +21,7 @@ import {
 import { getIDmStr } from "@/app/lib/nfc/rcs300.mjs";
 import { useToast } from "@/components/ui/use-toast";
 import { set } from "react-hook-form";
+import { putSales } from "@/app/sql/sqls";
 
 const ConfirmPage = () => {
   const searchParams = useSearchParams();
@@ -72,11 +73,29 @@ const ConfirmPage = () => {
   const bookSubtotal = bookCount * bookPrice; // ブックの小計
   const totalAmount = ticketSubtotal + bookSubtotal; // 合計金額
 
-  const handleOK = () => {
+  const handleOK = async () => {
     try {
       setShowMessage(true); // メッセージを表示
-      // ここにDB登録処理を追加
-      router.push("/sales");
+      // DB登録
+      if (userid) {
+        // useridがnullでないことを確認
+        try {
+          await putSales(userid, ticketCount, bookCount);
+          router.push("/sales");
+        } catch (error) {
+          console.error("Error recording data:", error);
+          toast({
+            title: "Error",
+            description: "DB登録に失敗しました",
+          });
+        }
+      } else {
+        console.error("userid is null");
+        toast({
+          title: "Error",
+          description: "ユーザーIDが無効です",
+        });
+      }
     } catch (e) {
       console.error(e);
     }

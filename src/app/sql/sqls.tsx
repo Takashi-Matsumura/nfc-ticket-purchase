@@ -21,3 +21,30 @@ export async function putUser(name: string, userid: string, cardid: string) {
     throw new Error("Failed to execute query");
   }
 }
+
+export async function putSales(userid: string, ticket: number, book: number) {
+  try {
+    const results = [];
+
+    if (ticket > 0) {
+      const ticketResult = await sql`
+        INSERT INTO tbl_ticket_purchases (user_id, ticket_type, amount)
+        VALUES (${userid}, 'バラ売り', ${ticket})
+      `;
+      results.push(ticketResult);
+    }
+
+    if (book > 0) {
+      const bookResult = await sql`
+        INSERT INTO tbl_ticket_purchases (user_id, ticket_type, amount)
+        VALUES (${userid}, 'セット売り', ${book})
+      `;
+      results.push(bookResult);
+    }
+
+    return results;
+  } catch (error) {
+    console.error("Error executing query:", error);
+    throw new Error("Failed to execute query");
+  }
+}
