@@ -15,7 +15,7 @@ const TicketSale = () => {
       <Card className="w-96 mx-auto mt-10">
         <CardHeader>
           <CardTitle className="text-center">バラ</CardTitle>
-          <CardDescription className="text-center text-sm">
+          <CardDescription className="text-center text-lg">
             400円/枚
           </CardDescription>
         </CardHeader>

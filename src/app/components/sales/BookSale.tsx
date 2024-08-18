@@ -15,7 +15,7 @@ const BookSale = () => {
       <Card className="w-96 mx-auto mt-10">
         <CardHeader>
           <CardTitle className="text-center">セット</CardTitle>
-          <CardDescription className="text-center text-sm">
+          <CardDescription className="text-center text-lg">
             3,000円/冊
           </CardDescription>
         </CardHeader>
