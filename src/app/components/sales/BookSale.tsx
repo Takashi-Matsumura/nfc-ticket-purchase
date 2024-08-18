@@ -9,7 +9,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const BookSale = () => {
+interface BookSaleProps {
+  book: number;
+  setBook: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const BookSale: React.FC<BookSaleProps> = ({ book, setBook }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBook(Number(e.target.value));
+  };
+
   return (
     <div className="flex">
       <Card className="w-96 mx-auto mt-10">
@@ -26,6 +35,7 @@ const BookSale = () => {
               className="text-center text-9xl font-bold w-full"
               defaultValue={0}
               min={0}
+              onChange={handleChange}
             />
             <p className="text-5xl">冊</p>
           </div>

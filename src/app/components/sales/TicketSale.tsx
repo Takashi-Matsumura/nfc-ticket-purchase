@@ -9,7 +9,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const TicketSale = () => {
+interface TicketSaleProps {
+  ticket: number;
+  setTicket: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const TicketSale: React.FC<TicketSaleProps> = ({ ticket, setTicket }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTicket(Number(e.target.value));
+  };
+
   return (
     <div className="flex">
       <Card className="w-96 mx-auto mt-10">
@@ -26,6 +35,7 @@ const TicketSale = () => {
               className="text-center text-9xl font-bold w-full"
               defaultValue={0}
               min={0}
+              onChange={handleChange}
             />
             <p className="text-5xl">枚</p>
           </div>
