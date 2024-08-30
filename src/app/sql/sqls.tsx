@@ -39,16 +39,16 @@ export async function putSales(userid: string, ticket: number, book: number) {
 
     if (ticket > 0) {
       const ticketResult = await sql`
-        INSERT INTO tbl_ticket_purchases (user_id, ticket_type, amount)
-        VALUES (${userid}, 'バラ売り', ${ticket})
+        INSERT INTO tbl_ticket_purchases (user_id, ticket_type, amount, buyer_name, seller_id)
+        VALUES (${userid}, 'バラ売り', ${ticket}, null, null)
       `;
       results.push(ticketResult);
     }
 
     if (book > 0) {
       const bookResult = await sql`
-        INSERT INTO tbl_ticket_purchases (user_id, ticket_type, amount)
-        VALUES (${userid}, 'セット売り', ${book})
+        INSERT INTO tbl_ticket_purchases (user_id, ticket_type, amount, buyer_name, seller_id)
+        VALUES (${userid}, 'セット売り', ${book}, null, null)
       `;
       results.push(bookResult);
     }
