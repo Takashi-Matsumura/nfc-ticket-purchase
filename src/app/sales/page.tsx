@@ -27,11 +27,11 @@ export default function Sales() {
         <EmployeeCard />
         <CustomerCard />
       </div>
-      <div className="flex items-center justify-center mt-10">
+      {/* <div className="flex items-center justify-center mt-10">
         <button className="text-7xl text-green-800" onClick={handleCSV}>
           <FaFileCsv />
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
