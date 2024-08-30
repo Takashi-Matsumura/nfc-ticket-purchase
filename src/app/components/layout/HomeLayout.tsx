@@ -3,7 +3,7 @@
 import React from "react";
 
 import { HiOutlineHome, HiOutlineInformationCircle } from "react-icons/hi2";
-import { HiOutlineArrowRightStartOnRectangle } from "react-icons/hi2";
+import { FaFileCsv } from "react-icons/fa6";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
@@ -16,13 +16,20 @@ export const Header: React.FC<LayoutProps> = ({ style }) => {
   return (
     <header style={style}>
       <div className="container bg-white mx-auto py-2 flex items-center justify-between">
-        <Link href="/">
-          <HiOutlineHome className="text-2xl" />
-        </Link>
+        <div className="flex items-center space-x-5 w-1/4">
+          <Link href="/">
+            <HiOutlineHome className="text-2xl" />
+          </Link>
+          <Link href="/csv" className="text-xl text-green-800">
+            <FaFileCsv />
+          </Link>
+        </div>
         {process.env.NEXT_PUBLIC_APP_NAME}
-        <Link href="/help">
-          <HiOutlineInformationCircle className="text-2xl" />
-        </Link>
+        <div className="flex items-center w-1/4 justify-end">
+          <Link href="/help">
+            <HiOutlineInformationCircle className="text-2xl" />
+          </Link>
+        </div>
       </div>
       <Separator />
     </header>
