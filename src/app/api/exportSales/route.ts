@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   try {
     //const sales = await getSales();
     try {
-      const {rows} =
+      const { rows } =
         await sql`SELECT * FROM tbl_ticket_purchases;`;
 
         console.log(rows);
@@ -21,7 +21,15 @@ export async function GET(request: Request) {
         return NextResponse.json({ message: 'No sales data available' });
       }
 
-      const csv = parse(rows);
+      const sales = rows.map((sale) => {
+        const saleDate = toZonedTime(sale.seles_date, 'Asia/Tokyo');
+        return {
+          ...sale,
+          seles_date: format(saleDate, 'yyyy-MM-dd HH:mm:ssXXX'),
+        };
+      });
+
+      const csv = parse(sales);
       const filePath = path.join(process.cwd(), 'public', 'sales_data.csv');
   
       // UTF-8 with BOM
