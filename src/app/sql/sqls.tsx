@@ -24,8 +24,7 @@ export async function putUser(name: string, userid: string, cardid: string) {
 
 export async function getSales() {
   try {
-    const { rows } =
-      await sql`SELECT user_id as userId FROM tbl_ticket_purchases`;
+    const { rows } = await sql`SELECT * FROM tbl_users`;
     console.log("rows:", rows);
     return rows;
   } catch (error) {
