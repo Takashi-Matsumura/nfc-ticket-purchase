@@ -8,28 +8,29 @@ const PageCsv = () => {
   const [month, setMonth] = useState("");
 
   const handleCSV = async () => {
-    // try {
-    //   const response = await fetch(
-    //     `/api/exportSales?year=${year}&month=${month}`,
-    //     {
-    //       method: "GET",
-    //       headers: {
-    //         "Cache-Control":
-    //           "no-store, no-cache, must-revalidate, proxy-revalidate",
-    //         Pragma: "no-cache",
-    //         Expires: "0",
-    //       },
-    //     }
-    //   );
-    //   const data = await response.json();
-    //   if (response.ok) {
-    //     window.location.href = data.filePath;
-    //   } else {
-    //     console.error("Failed to export sales data:", data.error);
-    //   }
-    // } catch (error) {
-    //   console.error("Error exporting sales data:", error);
-    // }
+    try {
+      console.log(`/api/exportSales?year=${year}&month=${month}`);
+      const response = await fetch(
+        `/api/exportSales?year=${year}&month=${month}`,
+        {
+          method: "GET",
+          headers: {
+            "Cache-Control":
+              "no-store, no-cache, must-revalidate, proxy-revalidate",
+            Pragma: "no-cache",
+            Expires: "0",
+          },
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        window.location.href = data.filePath;
+      } else {
+        console.error("Failed to export sales data:", data.error);
+      }
+    } catch (error) {
+      console.error("Error exporting sales data:", error);
+    }
   };
 
   return (
@@ -79,12 +80,7 @@ const PageCsv = () => {
           月
         </label>
       </div>
-      <ConfirmButton
-        label="管理者認証"
-        onClick={() => {
-          console.log("clicked");
-        }}
-      />
+      <ConfirmButton label="管理者認証" onClick={handleCSV} />
     </div>
   );
 };
