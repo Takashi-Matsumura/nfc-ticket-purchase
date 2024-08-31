@@ -1,4 +1,4 @@
-﻿"seles_date","user_id","buyer_name","ticket_type","amount","seller_id"
+﻿"saledate","userid","buyer","ticket","amount","seller"
 "2024-08-18 20:38:04+09:00","701",,"バラ売り",1,
 "2024-08-18 20:44:57+09:00","701",,"バラ売り",2,
 "2024-08-18 20:44:57+09:00","701",,"セット売り",1,
