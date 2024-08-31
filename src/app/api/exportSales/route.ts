@@ -6,8 +6,9 @@ import iconv from 'iconv-lite';
 import { getSales } from '@/app/sql/sqls';
 import { format } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
+import { QueryResultRow as PgQueryResultRow } from 'pg';
 
-interface Sale {
+interface QueryResultRow {
     saledate: string;
     userId: string;
     buyer: string;
@@ -18,21 +19,21 @@ interface Sale {
 
 export async function GET() {
     try {
-      const salesData: QueryResultRow[] = await getSales();
-      
-      if (salesData.length === 0) {
-        return NextResponse.json({ message: 'No sales data available' });
-      }
-      
-      const sales: Sale[] = salesData.map((data) => ({
-        saledate: data.saledate,
-        userId: data.userId,
-        buyer: data.buyer,
-        ticket: data.ticket,
-        amount: data.amount,
-        seller: data.seller,
-      }));
-  
+        const salesData: PgQueryResultRow[] = await getSales();
+        
+        if (salesData.length === 0) {
+            return NextResponse.json({ message: 'No sales data available' });
+        }
+        
+        const sales: QueryResultRow[] = salesData.map((data) => ({
+            saledate: data.saledate as string,
+            userId: data.userId as string,
+            buyer: data.buyer as string,
+            ticket: data.ticket as string,
+            amount: data.amount as number,
+            seller: data.seller as string,
+        }));
+        
       const formattedSales = sales.map((sale) => {
           const saleDate = toZonedTime(sale.saledate, 'Asia/Tokyo');
           return {
