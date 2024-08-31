@@ -7,18 +7,9 @@ import { getSales } from '@/app/sql/sqls';
 import { format } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
 
-interface Sale {
-    saledate: string;
-    userId: string;
-    buyer: string;
-    ticket: string;
-    amount: number;
-    seller: string;
-}
-
 export async function GET() {
     try {
-    //     const sales: Sale[] = await getSales();
+         const sales = await getSales();
         
     //     if (sales.length === 0) {
     //         return NextResponse.json({ message: 'No sales data available' });
