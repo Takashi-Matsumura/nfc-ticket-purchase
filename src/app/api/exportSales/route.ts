@@ -8,12 +8,12 @@ import { format } from 'date-fns';
 import { toZonedTime } from 'date-fns-tz';
 
 export async function GET() {
-    try {
-         const sales = await getSales();
-        
-    //     if (sales.length === 0) {
-    //         return NextResponse.json({ message: 'No sales data available' });
-    //     }
+  try {
+    const sales = await getSales();
+
+    if (sales.length === 0) {
+      return NextResponse.json({ message: 'No sales data available' });
+    }
 
     //   const formattedSales = sales.map((sale) => {
     //       const saleDate = toZonedTime(sale.saledate, 'Asia/Tokyo');
@@ -22,17 +22,17 @@ export async function GET() {
     //         saledate: format(saleDate, 'yyyy-MM-dd HH:mm:ssXXX'),
     //       };
     //   });
-  
+
     //   const csv = parse(formattedSales);
     //   const filePath = path.join(process.cwd(), 'public', 'sales_data.csv');
-      
+
     //   // UTF-8 with BOM
     //   const csvWithBom = iconv.encode('\uFEFF' + csv, 'utf-8');
     //   fs.writeFileSync(filePath, csvWithBom);
-      
-      return NextResponse.json({ message: 'CSV file has been saved', filePath: '/sales_data.csv' });
-    } catch (error) {
-      console.error(error);
-      return NextResponse.error();
-    }
+
+    return NextResponse.json({ message: 'CSV file has been saved', filePath: '/sales_data.csv' });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.error();
   }
+}
