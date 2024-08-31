@@ -9,7 +9,7 @@ import { toZonedTime } from 'date-fns-tz';
 
 export async function GET(req: NextRequest) {
   try {
-    const sales = await getSales();
+    //const sales = await getSales();
     
     // const formattedSales = sales.map((sale) => {
     //     const saleDate = toZonedTime(sale.seles_date, 'Asia/Tokyo');
